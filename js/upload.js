@@ -24,29 +24,6 @@ let uploadImages = (path, fileType) => {
   console.log(path);
 
   if (fileType.includes("jpeg")) {
-    // sharp(path)
-    //   .jpeg({ quality: 80 })
-    //   .toBuffer()
-    //   .then(data => {
-    //     cloudinary.v2.uploader.upload(
-    //       `data:image/jpeg;base64,${data.toString("base64")}`,
-    //       function(error, result) {
-    //         if (error) console.log(error);
-    //         console.log(result);
-    //         document
-    //           .querySelector("body")
-    //           .insertAdjacentHTML(
-    //             "afterBegin",
-    //             successStrip("successfully uploaded")
-    //           );
-    //         setTimeout(() => {
-    //           document.querySelector(".success").remove();
-    //         }, 2000);
-    //         errorStrip("please drag in a jpeg or png");
-    //       }
-    //     );
-    //   });
-
     imagemin([path], {
       use: [imageminMozjpeg({ quality: 80 })]
     }).then(data => {
@@ -70,21 +47,32 @@ let uploadImages = (path, fileType) => {
           }, 2000);
         }
       );
-      // => [{data: <Buffer 89 50 4e …>, path: 'build/images/foo.jpg'}, …]
     });
   } else if (fileType.includes("png")) {
-    sharp(path)
-      .png({ compressionLevel: 8 })
-      .toBuffer()
-      .then(data => {
-        cloudinary.v2.uploader.upload(
-          `data:image/jpeg;base64,${data.toString("base64")}`,
-          function(error, result) {
-            if (error) console.log(error);
-            console.log(result);
-          }
-        );
-      });
+    imagemin([path], {
+      use: [imageminPngquant({ quality: "65-80" })]
+    }).then(data => {
+      console.log("image optimised");
+      console.log(data);
+      cloudinary.v2.uploader.upload(
+        `data:image/jpeg;base64,${data[0].data.toString("base64")}`,
+        function(error, result) {
+          console.log(data);
+          console.log(data.toString("base64"));
+          if (error) console.log(error);
+          console.log(result);
+          document
+            .querySelector("body")
+            .insertAdjacentHTML(
+              "afterBegin",
+              successStrip("successfully uploaded")
+            );
+          setTimeout(() => {
+            document.querySelector(".success").remove();
+          }, 2000);
+        }
+      );
+    });
   } else {
     document
       .querySelector("body")
