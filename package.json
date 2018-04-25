@@ -1,0 +1,31 @@
+{
+  "name": "Cloudinary_uploader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "rebuild": "electron-rebuild -f -w sharp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.8.4",
+    "electron-rebuild": "^1.7.3"
+  },
+  "dependencies": {
+    "cloudinary": "^1.11.0",
+    "dotenv": "^5.0.1",
+    "electron-reload": "^1.2.2",
+    "imagemin": "^5.3.1",
+    "imagemin-jpegoptim": "^5.2.0",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^5.1.0",
+    "menubar": "^5.2.3",
+    "sharp": "^0.20.1"
+  }
+}
