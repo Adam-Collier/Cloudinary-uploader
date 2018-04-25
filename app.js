@@ -7,7 +7,6 @@ var mb = menubar({
   width: 400,
   height: 250,
   windowPosition: "trayLeft",
-  alwaysOnTop: true,
   backgroundColor: "#24292e",
   icon: "./icon/icon.png"
 });
